@@ -43,13 +43,11 @@ configurations.all {
 
 group = "net.ltgt.gradle"
 
-kotlinDslPluginOptions {
-    experimentalWarning.set(false)
-}
-
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.allWarningsAsErrors = true
 }
+// See https://github.com/gradle/gradle/issues/18935
+extra["kotlin.jvm.target.validation.mode"] = "IGNORE"
 
 gradle.taskGraph.whenReady {
     if (hasTask(":publishPlugins")) {
